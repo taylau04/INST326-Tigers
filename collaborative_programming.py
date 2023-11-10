@@ -148,3 +148,34 @@ class BasketballPlayer:
                     print(player_name1)
                 elif lines == player_name2:
                     print(player_name2)
+                    
+
+    
+    
+    def searchStats(category, operator, number):
+        """This function’s purpose is to be a search tool for users to search 
+            for specific stats to see which players fit in to the category 
+            being searched
+
+        Args:
+            category (string): This string can be any category in the stat line 
+            of a specific player from ppg (points per game), to 3pt%, to free 
+            throw %
+            operator (string): this will either be >, <, or = determining 
+            whether the user wants a stat greater than, less than, or equal to
+            the number
+            number (int): This is a number for a specific stat line. For example
+            25 could represent a 25 ppg
+        Returns:
+            List: A list of players in the file that match the catgeory being 
+            searched    
+        """
+        
+        with open(file, "r", encoding="utf-8") as file:
+            for line in file:
+                line.strip.split()
+                
+                
+                
+        
+    
