@@ -19,7 +19,7 @@ class CollegeBasketballPlayer:
     def __init__(self, name):
         self.scores = []
         self.name = name
-
+        
     def add_score(self, score):
         self.scores.append(score)
     
@@ -69,29 +69,59 @@ class CollegeBasketballPlayer:
         # Display the plot.
         plt.show()
 
-    def player_comparison(f, player_name1, player_name2):
-        """Open, reads the file, and iterates over each line.
+
+
+class BasketballPlayer:
+    """
+    Represents a basketball player's performance in a game.
+    
+    Attributes:
+        name (str): The name of the player.
+        points (int): Points scored by the player.
+        assists (int): Number of assists made by the player.
+        rebounds (int): Number of rebounds made by the player.
+        steals (int): Number of steals made by the player.
+        blocks (int): Number of blocks made by the player.
+        turnovers (int): Number of turnovers committed by the player.
+    """
+
+    def __init__(self, name, points, assists, rebounds, steals, blocks, turnovers):
+        """
+        Initializes a new BasketballPlayer instance with given statistics.
 
         Args:
-            f(str): the file name
-            player_name1(str): the 1st player's name and stats
-            player_name2(str): the 2nd player's name and stats
+            name (str): The name of the player.
+            points (int): Points scored by the player.
+            assists (int): Number of assists made by the player.
+            rebounds (int): Number of rebounds made by the player.
+            steals (int): Number of steals made by the player.
+            blocks (int): Number of blocks made by the player.
+            turnovers (int): Number of turnovers committed by the player.
+        """
+        self.name = name
+        self.points = points
+        self.assists = assists
+        self.rebounds = rebounds
+        self.steals = steals
+        self.blocks = blocks
+        self.turnovers = turnovers
+
+    def calculate_performance_score(self):
+        """
+        Calculates the performance score of the player based on their statistics.
+
+        The performance score is a weighted sum of various statistics like points,
+        assists, rebounds, etc., each having a different impact on the score.
 
         Returns:
-            Returns both player's statistics from the txt file and states
-            which player has the highest rating
-
+            float: The calculated performance score.
         """
-        with open(f, "r", encoding="utf-8") as f:
-            for line in f:
-                lines = line.strip().split()
-                # not sure how the txt file will be formatting the statistics of each player
-                # code underneath will be subject to change depending on the txt file
-                if lines == player_name1:
-                    print(player_name1)
-                elif lines == player_name2:
-                    print(player_name2)
-
-
-
-
+        # Weights for each stat - these can be adjusted
+        weights = {
+            'points': 0.2,
+            'assists': 0.15,
+            'rebounds': 0.15,
+            'steals': 0.1,
+            'blocks': 0.1,
+            'turnovers': -0.2  # Negative weight for turnovers
+        }
