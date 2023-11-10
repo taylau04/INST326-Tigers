@@ -121,7 +121,7 @@ class BasketballPlayer:
             'points': 0.2,
             'assists': 0.15,
             'rebounds': 0.15,
-            'steals': 0.1,
+            'steaks': 0.1,
             'blocks': 0.1,
             'turnovers': -0.2  # Negative weight for turnovers
         }
