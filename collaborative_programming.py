@@ -24,8 +24,27 @@ class CollegeBasketballPlayer:
         self.scores.append(score)
     
     def performance_graph(self):
+        """
+        Generates a performance graph for the given player, displaying the scores
+        across multiple games.
 
-        df = pd.DataFrame({'Score': self.scores, 'Game': range(1, len(self.scores) + 1)})
+        Args:
+        - self: An instance of the class containing player information.
+
+        The function creates a DataFrame from the player's scores, calculates 
+        the average score, and then generates a bar plot using seaborn.
+        It also adds a dashed line indicating the average score and annotates
+        it with the average value. The x-axis represents the games, 
+        and the y-axis represents the scores.
+
+        Side efects: 
+            Plots a bar chart on the screen
+        
+        Returns:
+            None
+        """
+        df = pd.DataFrame({'Score': self.scores,
+                           'Game': range(1, len(self.scores) + 1)})
 
         # Calculate the average score.
         average_score = df['Score'].mean()
@@ -34,10 +53,12 @@ class CollegeBasketballPlayer:
         sns.barplot(x='Game', y='Score', data=df)
 
         # Add a horizontal line for the average score using Matplotlib.
-        plt.axhline(average_score, color='black', linestyle='dashed', linewidth=2)
+        plt.axhline(average_score, color='black', linestyle='dashed',
+                    linewidth=2)
 
         # Annotate the average line.
-        plt.text(len(self.scores)-1, average_score, f'Average: {average_score:.1f}',
+        plt.text(len(self.scores)-1, average_score,
+                 f'Average: {average_score:.1f}',
                 color='red', va='top', ha='right')
 
         # Adding labels and title
