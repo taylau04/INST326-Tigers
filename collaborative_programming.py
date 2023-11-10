@@ -19,7 +19,7 @@ class CollegeBasketballPlayer:
     def __init__(self, name):
         self.scores = []
         self.name = name
-        
+
     def add_score(self, score):
         self.scores.append(score)
     
@@ -68,4 +68,30 @@ class CollegeBasketballPlayer:
 
         # Display the plot.
         plt.show()
+
+    def player_comparison(f, player_name1, player_name2):
+        """Open, reads the file, and iterates over each line.
+
+        Args:
+            f(str): the file name
+            player_name1(str): the 1st player's name and stats
+            player_name2(str): the 2nd player's name and stats
+
+        Returns:
+            Returns both player's statistics from the txt file and states
+            which player has the highest rating
+
+        """
+        with open(f, "r", encoding="utf-8") as f:
+            for line in f:
+                lines = line.strip().split()
+                # not sure how the txt file will be formatting the statistics of each player
+                # code underneath will be subject to change depending on the txt file
+                if lines == player_name1:
+                    print(player_name1)
+                elif lines == player_name2:
+                    print(player_name2)
+
+
+
 
