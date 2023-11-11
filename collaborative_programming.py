@@ -150,8 +150,6 @@ class BasketballPlayer:
                     print(player_name2)
                     
 
-    
-    
     def searchStats(category, operator, number):
         """This function’s purpose is to be a search tool for users to search 
             for specific stats to see which players fit in to the category 
@@ -174,7 +172,38 @@ class BasketballPlayer:
         with open(file, "r", encoding="utf-8") as file:
             for line in file:
                 line.strip.split()
-                
+     
+def main():
+    """Main function to run the basketball player statistics analyzer.
+
+    Returns:
+        None
+       """
+    # Parse command-line arguments
+    args = parse_args()
+    # Perform player comparison
+    player_comparison(args.file, args.player1, args.player2)
+
+    # Example for the performance graph )
+    player = CollegeBasketballPlayer("Player1")
+    player.add_score(14) # will eventually replace with actual data
+    player.add_score(26)
+    player.performance_graph()
+
+def parse_args(args):
+    """Parse and validate command-line arguments.
+
+    Returns:
+        namespace: the parsed arguments, as a namespace. 
+    """
+    parser = argparse.ArgumentParser()
+    parser.add_argument('file', type=str, help='Path to the file containing player statistics')
+    parser.add_argument('player1', type=str, help='Name of the first player')
+    parser.add_argument('player2', type=str, help='Name of the second player')
+    return parser.parse_args(args)
+
+if __name__ == "__main__":
+    main()           
                 
                 
         
