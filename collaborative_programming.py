@@ -125,3 +125,86 @@ class BasketballPlayer:
             'blocks': 0.1,
             'turnovers': -0.2  # Negative weight for turnovers
         }
+
+    def player_comparison(f, player_name1, player_name2):
+        """Open, reads the file, and iterates over each line.
+
+        Args:
+            f(str): the file name
+            player_name1(str): the 1st player's name and stats
+            player_name2(str): the 2nd player's name and stats
+
+        Returns:
+            Returns both player's statistics from the txt file and states
+            which player has the highest rating
+
+        """
+        with open(f, "r", encoding="utf-8") as f:
+            for line in f:
+                lines = line.strip().split()
+                # not sure how the txt file will be formatting the statistics of each player
+                # code underneath will be subject to change depending on the txt file
+                if lines == player_name1:
+                    print(player_name1)
+                elif lines == player_name2:
+                    print(player_name2)
+                    
+
+    def searchStats(category, operator, number):
+        """This function’s purpose is to be a search tool for users to search 
+            for specific stats to see which players fit in to the category 
+            being searched
+
+        Args:
+            category (string): This string can be any category in the stat line 
+            of a specific player from ppg (points per game), to 3pt%, to free 
+            throw %
+            operator (string): this will either be >, <, or = determining 
+            whether the user wants a stat greater than, less than, or equal to
+            the number
+            number (int): This is a number for a specific stat line. For example
+            25 could represent a 25 ppg
+        Returns:
+            List: A list of players in the file that match the catgeory being 
+            searched    
+        """
+        
+        with open(file, "r", encoding="utf-8") as file:
+            for line in file:
+                line.strip.split()
+     
+def main():
+    """Main function to run the basketball player statistics analyzer.
+
+    Returns:
+        None
+       """
+    # Parse command-line arguments
+    args = parse_args()
+    # Perform player comparison
+    player_comparison(args.file, args.player1, args.player2)
+
+    # Example for the performance graph )
+    player = CollegeBasketballPlayer("Player1")
+    player.add_score(14) # will eventually replace with actual data
+    player.add_score(26)
+    player.performance_graph()
+
+def parse_args(args):
+    """Parse and validate command-line arguments.
+
+    Returns:
+        namespace: the parsed arguments, as a namespace. 
+    """
+    parser = argparse.ArgumentParser()
+    parser.add_argument('file', type=str, help='Path to the file containing player statistics')
+    parser.add_argument('player1', type=str, help='Name of the first player')
+    parser.add_argument('player2', type=str, help='Name of the second player')
+    return parser.parse_args(args)
+
+if __name__ == "__main__":
+    main()           
+                
+                
+        
+    
