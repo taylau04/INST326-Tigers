@@ -14,62 +14,37 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
 
-class CollegeBasketballPlayer:
-    
-    def __init__(self, name):
-        self.scores = []
-        self.name = name
-        
-    def add_score(self, score):
-        self.scores.append(score)
-    
-    def performance_graph(self):
-        """
-        Generates a performance graph for the given player, displaying the scores
-        across multiple games.
-
-        Args:
-        - self: An instance of the class containing player information.
-
-        The function creates a DataFrame from the player's scores, calculates 
-        the average score, and then generates a bar plot using seaborn.
-        It also adds a dashed line indicating the average score and annotates
-        it with the average value. The x-axis represents the games, 
-        and the y-axis represents the scores.
-
-        Side efects: 
-            Plots a bar chart on the screen
-        
-        Returns:
-            None
-        """
-        df = pd.DataFrame({'Score': self.scores,
-                           'Game': range(1, len(self.scores) + 1)})
-
-        # Calculate the average score.
-        average_score = df['Score'].mean()
-
-        # Plot the bar using seaborn
-        sns.barplot(x='Game', y='Score', data=df)
-
-        # Add a horizontal line for the average score using Matplotlib.
-        plt.axhline(average_score, color='black', linestyle='dashed',
-                    linewidth=2)
-
-        # Annotate the average line.
-        plt.text(len(self.scores)-1, average_score,
-                 f'Average: {average_score:.1f}',
-                color='red', va='top', ha='right')
-
-        # Adding labels and title
-        plt.xlabel(f'Games')
-        plt.ylabel('Score')
-        plt.title(f'Scores of {self.name} for multiple games')
-
-        # Display the plot.
-        plt.show()
-
-
+basketball_stats_dict = {
+    "Player": "Player's name",
+    "Pos": "Position",
+    "Age": "Player's age",
+    "Tm": "Team",
+    "G": "Games played",
+    "GS": "Games started",
+    "MP": "Minutes played per game",
+    "FG": "Field goals per game",
+    "FGA": "Field goal attempts per game",
+    "FG%": "Field goal percentage",
+    "3P": "3-point field goals per game",
+    "3PA": "3-point field goal attempts per game",
+    "3P%": "3-point field goal percentage",
+    "2P": "2-point field goals per game",
+    "2PA": "2-point field goal attempts per game",
+    "2P%": "2-point field goal percentage",
+    "eFG%": "Effective field goal percentage",
+    "FT": "Free throws per game",
+    "FTA": "Free throw attempts per game",
+    "FT%": "Free throw percentage",
+    "ORB": "Offensive rebounds per game",
+    "DRB": "Defensive rebounds per game",
+    "TRB": "Total rebounds per game",
+    "AST": "Assists per game",
+    "STL": "Steals per game",
+    "BLK": "Blocks per game",
+    "TOV": "Turnovers per game",
+    "PF": "Personal fouls per game",
+    "PTS": "Points per game"
+}
 
 class BasketballPlayer:
     """
@@ -172,7 +147,90 @@ class BasketballPlayer:
         with open(file, "r", encoding="utf-8") as file:
             for line in file:
                 line.strip.split()
-     
+
+    def show_best_performing_teams(self, filepath, criteria_column, 
+                                   number_of_best_teams=None):
+        """
+        Read a dataset from a CSV file and return the best performing teams 
+        based on a given criteria.
+
+        Args:
+        - filepath (str): The path to the CSV file containing the dataset.
+        - criteria_column (str): The name of the column in the dataset that is 
+        used to evaluate team performance.
+        - number_of_best_teams (int): The number of top-performing teams to 
+        return.
+
+        Returns:
+        pandas.Series: A series with team names as the index and their
+        average performance metric as values, sorted in descending order of 
+        performance.
+
+        The function performs the following steps:
+        1. Reads the dataset from the specified CSV file into a Pandas 
+        DataFrame.
+        2. Groups the data by the 'Tm' (team) column and calculates the mean of 
+        the specified criteria column for each team.
+        3. Sorts the teams by their average performance in descending order.
+        4. Returns the specified number of top-performing teams.
+        """
+        df = pd.read_csv(filepath)
+        grouped_by_team = df.groupby("Tm")[criteria_column]
+        average_by_team = grouped_by_team.sum()
+        sorted_by_average = average_by_team.sort_values(key=lambda x: -1 * x)
+        if number_of_best_teams is None:
+            return sorted_by_average
+        return sorted_by_average[:number_of_best_teams]
+
+    def show_player_stats_by_team_barplot(self, filepath, team_name, 
+                                          stats_column):
+        """
+        Generate a bar plot showing the specified basketball statistics for 
+        each player in a given team.
+
+        Args:
+        - filepath (str): Path to the CSV file containing the basketball 
+        statistics data.
+        - team_name (str): Name of the team for which the statistics are to be 
+        plotted.
+        - stats_column (str): The specific column/statistic to be plotted 
+        (e.g., 'PTS' for points per game).
+
+        This function reads the basketball data from the specified CSV file, 
+        filters it for a given team, and creates a bar plot for a specific 
+        statistical column. The plot displays each player on the x-axis and 
+        their respective statistic on the y-axis.
+
+        Note:
+        - The function does not plot statistics for non-numerical columns like 
+        'Player', 'Tm', and 'Pos'.
+        - The function relies on a pre-defined dictionary 'basketball_stats_dict' 
+        for column descriptions.
+
+        The function first checks if the specified statistical column is
+        valid and can be plotted.
+        If valid, it then filters the DataFrame for the specified team, 
+        creates a bar plot, and displays it.
+        """
+        if stats_column in ["Player", "Tm", "Pos"]:
+            print(f"Cannot plot statistics for column {stats_column}")
+            return
+        stats_column_desc = basketball_stats_dict.get(stats_column)
+        if stats_column_desc is None:
+            print(f"Cannot plot statistics for column {stats_column}," 
+                  " no such statistics available.")
+            return
+        df = pd.read_csv(filepath)
+        plot_data = df[df["Tm"] == team_name][["Player", stats_column]]
+
+        sns.barplot(x='Player', y=stats_column, data=plot_data)
+
+        plt.title(f'{stats_column_desc} per Player')
+        plt.xlabel('Player')
+        plt.ylabel(f'{stats_column_desc} ({stats_column})')
+        plt.xticks(rotation=90)  # Rotate the player names
+        plt.show()
+
 def main():
     """Main function to run the basketball player statistics analyzer.
 
