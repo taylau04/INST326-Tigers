@@ -66,6 +66,45 @@ class BasketballPlayer:
         self.name = name
         self.stats = {'points': 0, 'assists': 0, 'rebounds': 0, 
                       'steals': 0, 'blocks': 0, 'turnovers': 0}
+    
+def get_player1_stats(filepath):
+        """Open, reads the file, and iterates over each line.
+
+        Args:
+            f(str): the file name
+
+        Returns:
+            Returns both player's statistics from the txt file and states
+            which player has the highest rating
+
+        """
+        name1 = input("Input player 1: ")
+        with open(filepath, "r", encoding="utf-8") as f:
+            read_csv = csv.reader(f)
+            column_names = next(read_csv)
+            for line in read_csv:
+                if line[0] == name1:
+                    return line
+
+def get_player2_stats(filepath, name2):
+        """Open, reads the file, and iterates over each line.
+
+        Args:
+            f(str): the file name
+
+        Returns:
+            Returns both player's statistics from the txt file and states
+            which player has the highest rating
+
+        """
+        name2 = input("Input player 1: ")
+        with open(filepath, "r", encoding="utf-8") as f:
+            read_csv = csv.reader(f)
+            column_names = next(read_csv)
+            for line in read_csv:
+                if line[0] == name2:
+                    return line
+
 
     def add_stats(self, points=0, assists=0, rebounds=0, 
                   steals=0, blocks=0, turnovers=0):
@@ -155,28 +194,6 @@ performance_score = player.calculate_performance_score()
 grade = player.get_grade(performance_score)
 print(f"Performance Score for {player.name}: {performance_score:.2f} (Grade: {grade})")
 
-    def player_comparison(filepath):
-        """Open, reads the file, and iterates over each line.
-
-        Args:
-            f(str): the file name
-
-        Returns:
-            Returns both player's statistics from the txt file and states
-            which player has the highest rating
-
-        """
-        with open(filepath, "r", encoding="utf-8") as f:
-            read_csv = csv.reader(f)
-            for line in read_csv:
-                lines = line.strip().split()
-                if lines == player_input1:
-                    # need to finish the calc part to compare ratings of player 
-                    # will return the formal repre the statistics of the player with the highest rating 
-                
-    player_input1 = input("Choose player1 name: ")
-    player_input2 = input("Choose player2 name: ")
-    
     def __repr__(self):
         return f"BasketballPlayer(name = '{self.name}', points = '{self.points}', assists = '{self.assists}', steals = '{self.steals}, turnovers = '{self.turnovers}')"
         
