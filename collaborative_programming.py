@@ -13,6 +13,7 @@
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
+import csv
 
 basketball_stats_dict = {
     "Player": "Player's name",
@@ -101,28 +102,31 @@ class BasketballPlayer:
             'turnovers': -0.2  # Negative weight for turnovers
         }
 
-    def player_comparison(f, player_name1, player_name2):
+    def player_comparison(file):
         """Open, reads the file, and iterates over each line.
 
         Args:
             f(str): the file name
-            player_name1(str): the 1st player's name and stats
-            player_name2(str): the 2nd player's name and stats
 
         Returns:
             Returns both player's statistics from the txt file and states
             which player has the highest rating
 
         """
-        with open(f, "r", encoding="utf-8") as f:
-            for line in f:
+        with open(file, "r", encoding="utf-8") as f:
+            read_csv = csv.reader(f)
+            for line in read_csv:
                 lines = line.strip().split()
-                # not sure how the txt file will be formatting the statistics of each player
-                # code underneath will be subject to change depending on the txt file
-                if lines == player_name1:
-                    print(player_name1)
-                elif lines == player_name2:
-                    print(player_name2)
+                if lines == player_input1:
+                    # need to finish the calc part to compare ratings of player 
+                    # will return the formal repre the statistics of the player with the highest rating 
+                
+    player_input1 = input("Choose player1 name: ")
+    player_input2 = input("Choose player2 name: ")
+    
+    def __repr__(self):
+        return f"BasketballPlayer(name = '{self.name}', points = '{self.points}', assists = '{self.assists}', steals = '{self.steals}, turnovers = '{self.turnovers}')"
+        
                     
 
     def searchStats(category, operator, number):
@@ -254,14 +258,15 @@ def parse_args(args):
     Returns:
         namespace: the parsed arguments, as a namespace. 
     """
-    parser = argparse.ArgumentParser()
+    parser = ArgumentParser()
     parser.add_argument('file', type=str, help='Path to the file containing player statistics')
     parser.add_argument('player1', type=str, help='Name of the first player')
     parser.add_argument('player2', type=str, help='Name of the second player')
-    return parser.parse_args(args)
+    return parser.parse_args(arglist)
 
 if __name__ == "__main__":
-    main()           
+    args = parse_args(sys.args[1:])
+    main(args.file)           
                 
                 
         
