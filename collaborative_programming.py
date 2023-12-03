@@ -100,7 +100,7 @@ class BasketballPlayer:
         weights = {'points': 2.5, 'assists': 2.0, 'rebounds': 1.5, 
                    'steals': 3.0, 'blocks': 3.0, 'turnovers': -2.0}
         score = sum(self.stats[stat] * weights[stat] for stat in self.stats)
-        return min(max(score, 0), 100)  # Ensure score is between 0 and 100
+        return min(max(score, 0), 100)
 
     def get_grade(self, score):
         """
@@ -139,7 +139,6 @@ def get_stat_input(stat_name):
         except ValueError:
             print("Please enter a valid integer.")
 
-# Example Usage
 player_name = input("Enter the player's name: ")
 player = BasketballPlayer(player_name)
 
