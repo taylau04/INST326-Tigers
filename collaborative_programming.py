@@ -102,7 +102,7 @@ class BasketballPlayer:
             'turnovers': -0.2  # Negative weight for turnovers
         }
 
-    def player_comparison(file):
+    def player_comparison(filepath):
         """Open, reads the file, and iterates over each line.
 
         Args:
@@ -113,7 +113,7 @@ class BasketballPlayer:
             which player has the highest rating
 
         """
-        with open(file, "r", encoding="utf-8") as f:
+        with open(filepath, "r", encoding="utf-8") as f:
             read_csv = csv.reader(f)
             for line in read_csv:
                 lines = line.strip().split()
