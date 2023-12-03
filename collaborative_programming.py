@@ -67,7 +67,7 @@ class BasketballPlayer:
         self.stats = {'points': 0, 'assists': 0, 'rebounds': 0, 
                       'steals': 0, 'blocks': 0, 'turnovers': 0}
     
-def get_player1_stats(filepath):
+    def get_player1_stats(filepath):
         """Open, reads the file, and iterates over each line.
 
         Args:
@@ -86,7 +86,7 @@ def get_player1_stats(filepath):
                 if line[0] == name1:
                     return line
 
-def get_player2_stats(filepath, name2):
+    def get_player2_stats(filepath, name2):
         """Open, reads the file, and iterates over each line.
 
         Args:
@@ -97,7 +97,7 @@ def get_player2_stats(filepath, name2):
             which player has the highest rating
 
         """
-        name2 = input("Input player 1: ")
+        name2 = input("Input player 2: ")
         with open(filepath, "r", encoding="utf-8") as f:
             read_csv = csv.reader(f)
             column_names = next(read_csv)
