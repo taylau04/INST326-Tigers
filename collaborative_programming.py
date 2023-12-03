@@ -49,24 +49,30 @@ basketball_stats_dict = {
 
 class BasketballPlayer:
     """
-    Represents a basketball player's performance in a game.
+    Represents a basketball player and tracks their game statistics.
     
     Attributes:
         name (str): The name of the player.
-        points (int): Points scored by the player.
-        assists (int): Number of assists made by the player.
-        rebounds (int): Number of rebounds made by the player.
-        steals (int): Number of steals made by the player.
-        blocks (int): Number of blocks made by the player.
-        turnovers (int): Number of turnovers committed by the player.
+        stats (dict): A dictionary to store the player's game statistics.
     """
 
-    def __init__(self, name, points, assists, rebounds, steals, blocks, turnovers):
+    def __init__(self, name):
         """
-        Initializes a new BasketballPlayer instance with given statistics.
+        Initializes a new BasketballPlayer instance with a given name.
 
         Args:
-            name (str): The name of the player.
+            name (str): The name of the basketball player.
+        """
+        self.name = name
+        self.stats = {'points': 0, 'assists': 0, 'rebounds': 0, 
+                      'steals': 0, 'blocks': 0, 'turnovers': 0}
+
+    def add_stats(self, points=0, assists=0, rebounds=0, 
+                  steals=0, blocks=0, turnovers=0):
+        """
+        Adds or updates the player's game statistics.
+
+        Args:
             points (int): Points scored by the player.
             assists (int): Number of assists made by the player.
             rebounds (int): Number of rebounds made by the player.
@@ -74,33 +80,81 @@ class BasketballPlayer:
             blocks (int): Number of blocks made by the player.
             turnovers (int): Number of turnovers committed by the player.
         """
-        self.name = name
-        self.points = points
-        self.assists = assists
-        self.rebounds = rebounds
-        self.steals = steals
-        self.blocks = blocks
-        self.turnovers = turnovers
+        self.stats['points'] += points
+        self.stats['assists'] += assists
+        self.stats['rebounds'] += rebounds
+        self.stats['steals'] += steals
+        self.stats['blocks'] += blocks
+        self.stats['turnovers'] += turnovers
 
     def calculate_performance_score(self):
         """
-        Calculates the performance score of the player based on their statistics.
+        Calculates a performance score for the player based on their statistics.
 
-        The performance score is a weighted sum of various statistics like points,
-        assists, rebounds, etc., each having a different impact on the score.
+        The performance score is a weighted sum of the player's stats,
+        where each stat category has a specific weight.
 
         Returns:
-            float: The calculated performance score.
+            float: The calculated performance score, constrained between 0 and 100.
         """
-        # Weights for each stat - these can be adjusted
-        weights = {
-            'points': 0.2,
-            'assists': 0.15,
-            'rebounds': 0.15,
-            'steaks': 0.1,
-            'blocks': 0.1,
-            'turnovers': -0.2  # Negative weight for turnovers
-        }
+        weights = {'points': 2.5, 'assists': 2.0, 'rebounds': 1.5, 
+                   'steals': 3.0, 'blocks': 3.0, 'turnovers': -2.0}
+        score = sum(self.stats[stat] * weights[stat] for stat in self.stats)
+        return min(max(score, 0), 100)  # Ensure score is between 0 and 100
+
+    def get_grade(self, score):
+        """
+        Determines the grade of the player based on their performance score.
+
+        Args:
+            score (float): The performance score of the player.
+
+        Returns:
+            str: The grade (A, B, C, D, or F) based on the performance score.
+        """
+        if score >= 90:
+            return 'A'
+        elif score >= 80:
+            return 'B'
+        elif score >= 70:
+            return 'C'
+        elif score >= 60:
+            return 'D'
+        else:
+            return 'F'
+
+def get_stat_input(stat_name):
+    """
+    Prompts the user to input a statistical value for a given stat category.
+
+    Args:
+        stat_name (str): The name of the stat category for which the value is being input.
+
+    Returns:
+        int: The input value for the stat.
+    """
+    while True:
+        try:
+            return int(input(f"Enter {stat_name}: "))
+        except ValueError:
+            print("Please enter a valid integer.")
+
+# Example Usage
+player_name = input("Enter the player's name: ")
+player = BasketballPlayer(player_name)
+
+player.add_stats(
+    points=get_stat_input("points"),
+    assists=get_stat_input("assists"),
+    rebounds=get_stat_input("rebounds"),
+    steals=get_stat_input("steals"),
+    blocks=get_stat_input("blocks"),
+    turnovers=get_stat_input("turnovers")
+)
+
+performance_score = player.calculate_performance_score()
+grade = player.get_grade(performance_score)
+print(f"Performance Score for {player.name}: {performance_score:.2f} (Grade: {grade})")
 
     def player_comparison(filepath):
         """Open, reads the file, and iterates over each line.
