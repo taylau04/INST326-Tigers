@@ -192,10 +192,6 @@ performance_score = player.calculate_performance_score()
 grade = player.get_grade(performance_score)
 print(f"Performance Score for {player.name}: {performance_score:.2f} (Grade: {grade})")
 
-    def __repr__(self):
-        return f"BasketballPlayer(name = '{self.name}', points = '{self.points}', assists = '{self.assists}', steals = '{self.steals}, turnovers = '{self.turnovers}')"
-        
-                    
 
     def searchStats(self, category, operator, number):
         """This function’s purpose is to be a search tool for users to search 
