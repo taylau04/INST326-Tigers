@@ -74,10 +74,10 @@ class BasketballPlayer:
             filepath(str): the file name
 
         Returns:
-            Returns player 1's statistics from the csv file
+            Returns player 1's statistics from the csv file based on user input
 
         """
-        name1 = input("Input player 1: ")
+        name1 = input("Enter player 1's name: ")
         with open(filepath, "r", encoding="utf-8") as f:
             read_csv = csv.reader(f)
             column_names = next(read_csv)
@@ -92,10 +92,10 @@ class BasketballPlayer:
             filepath(str): the file name
 
         Returns:
-            Returns player 2's statistics from the csv file
+            Returns player 2's statistics from the csv file based on user input
 
         """
-        name2 = input("Input player 2: ")
+        name2 = input("Enter player 2's name: ")
         with open(filepath, "r", encoding="utf-8") as f:
             read_csv = csv.reader(f)
             column_names = next(read_csv)
