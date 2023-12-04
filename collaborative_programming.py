@@ -71,11 +71,10 @@ class BasketballPlayer:
         """Open, reads the file, and iterates over each line.
 
         Args:
-            f(str): the file name
+            filepath(str): the file name
 
         Returns:
-            Returns both player's statistics from the txt file and states
-            which player has the highest rating
+            Returns player 1's statistics from the csv file
 
         """
         name1 = input("Input player 1: ")
@@ -90,11 +89,10 @@ class BasketballPlayer:
         """Open, reads the file, and iterates over each line.
 
         Args:
-            f(str): the file name
+            filepath(str): the file name
 
         Returns:
-            Returns both player's statistics from the txt file and states
-            which player has the highest rating
+            Returns player 2's statistics from the csv file
 
         """
         name2 = input("Input player 2: ")
