@@ -85,7 +85,7 @@ class BasketballPlayer:
                 if line[0] == name1:
                     return line
 
-    def get_player2_stats(filepath, name2):
+    def get_player2_stats(filepath):
         """Open, reads the file, and iterates over each line.
 
         Args:
