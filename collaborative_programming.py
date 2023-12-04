@@ -197,7 +197,7 @@ print(f"Performance Score for {player.name}: {performance_score:.2f} (Grade: {gr
         
                     
 
-    def searchStats(category, operator, number):
+    def searchStats(self, category, operator, number):
         """This function’s purpose is to be a search tool for users to search 
             for specific stats to see which players fit in to the category 
             being searched
@@ -216,9 +216,39 @@ print(f"Performance Score for {player.name}: {performance_score:.2f} (Grade: {gr
             searched    
         """
         
-        with open(file, "r", encoding="utf-8") as file:
-            for line in file:
-                line.strip.split()
+        filepath = ("N:Users:richmondo:Downloads:archive (1):NBA_2024_per_game(13-11-2023 Updated).csvBA_2024_per_game(13-11-2023 Updated).csv")
+    
+        self.operator = operator
+        self.category = category
+        self.number = number
+    
+        df = pd.read_csv(filepath)
+
+        # Defining the condition based on the operator
+        if operator == '>':
+            condition = df[category] > number
+        elif operator == '<':
+            condition = df[category] < number
+        elif operator == '=':
+            condition = df[category] == number
+        else:
+            raise ValueError("Invalid operator. Use '>', '<', or '='.")
+
+        #Using boolean indexing to filter the DataFrame
+        result_df = df[condition]
+
+        #Converting the result to a list of dictionaries
+        result_list = result_df.to_dict('records')
+
+        return result_list
+    
+    def __call__(self, operator, category, number, sort_key=None, reverse=False):
+        result_list = self.searchStats(operator, category, number)
+
+        if sort_key:
+            result_list.sort(key=lambda x: x[sort_key], reverse=reverse)
+
+        return result_list
 
     def show_best_performing_teams(self, filepath, criteria_column, 
                                    number_of_best_teams=None):
