@@ -47,150 +47,117 @@ basketball_stats_dict = {
     "PTS": "Points per game"
 }
 
-class BasketballPlayer:
+class PlayerGrader:
     """
-    Represents a basketball player and tracks their game statistics.
-    
+    A class to grade basketball players based on their statistics.
+
+    This class reads player statistics from a CSV file and calculates a grade
+    for each player based on a weighted evaluation of their performance.
+
     Attributes:
-        name (str): The name of the player.
-        stats (dict): A dictionary to store the player's game statistics.
+        filepath (str): The file path to the CSV file containing player stats.
     """
 
-    def __init__(self, name):
+    def __init__(self, filepath):
         """
-        Initializes a new BasketballPlayer instance with a given name.
+        Initializes the PlayerGrader with the path to the CSV file.
 
         Args:
-            name (str): The name of the basketball player.
+            filepath (str): The file path to the CSV file containing player stats.
         """
-        self.name = name
-        self.stats = {'points': 0, 'assists': 0, 'rebounds': 0, 
-                      'steals': 0, 'blocks': 0, 'turnovers': 0}
-    
-    def get_player1_stats(filepath):
-        """Open, reads the file, and iterates over each line.
+        self.filepath = filepath
+
+    def get_player_stats(self, player_name):
+        """
+        Retrieves the statistics for a specific player from the CSV file.
 
         Args:
-            filepath(str): the file name
+            player_name (str): The name of the player whose stats are to be retrieved.
 
         Returns:
-            Returns player 1's statistics from the csv file based on user input
-
+            pd.Series: A pandas Series containing the player's statistics. Returns
+            None if the player is not found in the file.
         """
-        name1 = input("Enter player 1's name: ")
-        with open(filepath, "r", encoding="utf-8") as f:
+        with open(self.filepath, "r", encoding="utf-8") as f:
             read_csv = csv.reader(f)
             column_names = next(read_csv)
             for line in read_csv:
-                if line[0] == name1:
-                    return line
+                if line[0].lower() == player_name.lower():
+                    stats = {stat: float(line[column_names.index(stat)]) for stat in ['PTS', 'AST', 'TRB', 'STL', 'BLK', 'TOV']}
+                    return pd.Series(stats)
+        return None
 
-    def get_player2_stats(filepath):
-        """Open, reads the file, and iterates over each line.
+    def calculate_player_grade(self, player_stats):
+        """
+        Calculates the grade of a player based on their statistics.
+
+        The function uses a weighted scoring system for different statistics
+        (like points, assists, rebounds, etc.) and then converts this score into a letter grade.
 
         Args:
-            filepath(str): the file name
+            player_stats (pd.Series): A pandas Series containing player's statistics.
 
         Returns:
-            Returns player 2's statistics from the csv file based on user input
-
+            tuple: A tuple containing the letter grade (str) and numeric score (float) for the player.
         """
-        name2 = input("Enter player 2's name: ")
-        with open(filepath, "r", encoding="utf-8") as f:
-            read_csv = csv.reader(f)
-            column_names = next(read_csv)
-            for line in read_csv:
-                if line[0] == name2:
-                    return line
+        weights = {'PTS': 1.1, 'AST': 1.05, 'TRB': 1.05, 'STL': 1.1, 'BLK': 1.1, 'TOV': -0.9}
+        total_score = sum([player_stats[stat] * weights[stat] for stat in weights])
+        scaled_score = max(0, min(100, total_score * 2))
 
-
-    def add_stats(self, points=0, assists=0, rebounds=0, 
-                  steals=0, blocks=0, turnovers=0):
-        """
-        Adds or updates the player's game statistics.
-
-        Args:
-            points (int): Points scored by the player.
-            assists (int): Number of assists made by the player.
-            rebounds (int): Number of rebounds made by the player.
-            steals (int): Number of steals made by the player.
-            blocks (int): Number of blocks made by the player.
-            turnovers (int): Number of turnovers committed by the player.
-        """
-        self.stats['points'] += points
-        self.stats['assists'] += assists
-        self.stats['rebounds'] += rebounds
-        self.stats['steals'] += steals
-        self.stats['blocks'] += blocks
-        self.stats['turnovers'] += turnovers
-
-    def calculate_performance_score(self):
-        """
-        Calculates a performance score for the player based on their statistics.
-
-        The performance score is a weighted sum of the player's stats,
-        where each stat category has a specific weight.
-
-        Returns:
-            float: The calculated performance score, constrained between 0 and 100.
-        """
-        weights = {'points': 2.5, 'assists': 2.0, 'rebounds': 1.5, 
-                   'steals': 3.0, 'blocks': 3.0, 'turnovers': -2.0}
-        score = sum(self.stats[stat] * weights[stat] for stat in self.stats)
-        return min(max(score, 0), 100)
-
-    def get_grade(self, score):
-        """
-        Determines the grade of the player based on their performance score.
-
-        Args:
-            score (float): The performance score of the player.
-
-        Returns:
-            str: The grade (A, B, C, D, or F) based on the performance score.
-        """
-        if score >= 90:
-            return 'A'
-        elif score >= 80:
-            return 'B'
-        elif score >= 70:
-            return 'C'
-        elif score >= 60:
-            return 'D'
+        if scaled_score >= 96.5:
+            grade = 'A+'
+        elif scaled_score >= 92.5:
+            grade = 'A'
+        elif scaled_score >= 89.5:
+            grade = 'A-'
+        elif scaled_score >= 86.5:
+            grade = 'B+'
+        elif scaled_score >= 82.5:
+            grade = 'B'
+        elif scaled_score >= 79.5:
+            grade = 'B-'
+        elif scaled_score >= 76.5:
+            grade = 'C+'
+        elif scaled_score >= 72.5:
+            grade = 'C'
+        elif scaled_score >= 69.5:
+            grade = 'C-'
+        elif scaled_score >= 66.5:
+            grade = 'D+'
+        elif scaled_score >= 62.5:
+            grade = 'D'
+        elif scaled_score >= 59.5:
+            grade = 'D-'
         else:
-            return 'F'
+            grade = 'F'
+        return grade, scaled_score
 
-def get_stat_input(stat_name):
+def main():
     """
-    Prompts the user to input a statistical value for a given stat category.
+    Main function to initiate the player grading process.
 
-    Args:
-        stat_name (str): The name of the stat category for which the value is being input.
-
-    Returns:
-        int: The input value for the stat.
+    This function creates an instance of the PlayerGrader class, fetches stats
+    for two players entered by the user, calculates their grades, and prints the results.
     """
-    while True:
-        try:
-            return int(input(f"Enter {stat_name}: "))
-        except ValueError:
-            print("Please enter a valid integer.")
+    filepath = "NBA_2024_per_game(28-11-2023).csv"
+    grader = PlayerGrader(filepath)
 
-player_name = input("Enter the player's name: ")
-player = BasketballPlayer(player_name)
+    player1_name = input("Enter Player 1's name: ")
+    player1_stats = grader.get_player_stats(player1_name)
+    if player1_stats is not None:
+        grade1, score1 = grader.calculate_player_grade(player1_stats)
+        print(f"Player 1 Grade: {grade1}, Numeric Score: {score1}")
+    else:
+        print(f"No player found with the name '{player1_name}'.")
 
-player.add_stats(
-    points=get_stat_input("points"),
-    assists=get_stat_input("assists"),
-    rebounds=get_stat_input("rebounds"),
-    steals=get_stat_input("steals"),
-    blocks=get_stat_input("blocks"),
-    turnovers=get_stat_input("turnovers")
-)
+    player2_name = input("Enter Player 2's name: ")
+    player2_stats = grader.get_player_stats(player2_name)
+    if player2_stats is not None:
+        grade2, score2 = grader.calculate_player_grade(player2_stats)
+        print(f"Player 2 Grade: {grade2}, Numeric Score: {score2}")
+    else:
+        print(f"No player found with the name '{player2_name}'.")
 
-performance_score = player.calculate_performance_score()
-grade = player.get_grade(performance_score)
-print(f"Performance Score for {player.name}: {performance_score:.2f} (Grade: {grade})")
 
 
     def searchStats(self, category, operator, number):
