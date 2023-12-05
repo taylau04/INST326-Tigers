@@ -132,34 +132,13 @@ class PlayerGrader:
             grade = 'F'
         return grade, scaled_score
 
-def main():
-    """
-    Main function to initiate the player grading process.
-
-    This function creates an instance of the PlayerGrader class, fetches stats
-    for two players entered by the user, calculates their grades, and prints the results.
-    """
-    filepath = "NBA_2024_per_game(28-11-2023).csv"
-    grader = PlayerGrader(filepath)
-
-    player1_name = input("Enter Player 1's name: ")
-    player1_stats = grader.get_player_stats(player1_name)
-    if player1_stats is not None:
-        grade1, score1 = grader.calculate_player_grade(player1_stats)
-        print(f"Player 1 Grade: {grade1}, Numeric Score: {score1}")
-    else:
-        print(f"No player found with the name '{player1_name}'.")
-
-    player2_name = input("Enter Player 2's name: ")
-    player2_stats = grader.get_player_stats(player2_name)
-    if player2_stats is not None:
-        grade2, score2 = grader.calculate_player_grade(player2_stats)
-        print(f"Player 2 Grade: {grade2}, Numeric Score: {score2}")
-    else:
-        print(f"No player found with the name '{player2_name}'.")
-
-
-
+    def player_comparison(player1_name, player2_name, score1, score2):
+        return (
+            f"{player1_name} received a higher performance score than {player2_name}"
+            if score1 > score2 else f"{player2_name} received a higher performance score than {player1_name}"
+            if score1 == score2 else f"{player1_name} is the same performance score as {player2_name}"   
+        )
+    
     def searchStats(self, category, operator, number):
         """This function’s purpose is to be a search tool for users to search 
             for specific stats to see which players fit in to the category 
@@ -297,11 +276,29 @@ def main():
         plt.show()
 
 def main():
-    """Main function to run the basketball player statistics analyzer.
+    """Main function to initiate the player grading process.
 
-    Returns:
-        None
-       """
+    This function creates an instance of the PlayerGrader class, fetches stats
+    for two players entered by the user, calculates their grades, and prints the results.
+    """
+    filepath = "NBA_2024_per_game(28-11-2023).csv"
+    grader = PlayerGrader(filepath)
+
+    player1_name = input("Enter Player 1's name: ")
+    player1_stats = grader.get_player_stats(player1_name)
+    if player1_stats is not None:
+        grade1, score1 = grader.calculate_player_grade(player1_stats)
+        print(f"Player 1 Grade: {grade1}, Numeric Score: {score1}")
+    else:
+        print(f"No player found with the name '{player1_name}'.")
+
+    player2_name = input("Enter Player 2's name: ")
+    player2_stats = grader.get_player_stats(player2_name)
+    if player2_stats is not None:
+        grade2, score2 = grader.calculate_player_grade(player2_stats)
+        print(f"Player 2 Grade: {grade2}, Numeric Score: {score2}")
+    else:
+        print(f"No player found with the name '{player2_name}'.")
     # Parse command-line arguments
     args = parse_args()
     # Perform player comparison
