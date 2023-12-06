@@ -160,39 +160,68 @@ class PlayerGrader:
             searched    
         """
         
-        filepath = ("N:Users:richmondo:Downloads:archive (1):NBA_2024_per_game(13-11-2023 Updated).csvBA_2024_per_game(13-11-2023 Updated).csv")
-    
+        # Created a list of possible categories
+        self.possible_categories = ["Pos", "Age", "GS", "MP","FG%",
+                                    "FT%",
+                                    "TRB", "AST", "STL", "BLK", "TOV", "PF", "PTS"]
+        
+        filepath = "/Users/richmondo/Desktop/NBA_2024_per_game(15-11-2023 Updated).csv"
+
         self.operator = operator
         self.category = category
         self.number = number
-    
+
         df = pd.read_csv(filepath)
 
+        # Checking if the provided category is in the list of possible categories
+        if self.category not in self.possible_categories:
+            raise ValueError("Invalid category. Choose from: {}".format(", ".join(self.possible_categories)))
+
         # Defining the condition based on the operator
-        if operator == '>':
-            condition = df[category] > number
-        elif operator == '<':
-            condition = df[category] < number
-        elif operator == '=':
-            condition = df[category] == number
+        if self.operator == '>':
+            condition = df[self.category] > number
+        elif self.operator == '<':
+            condition = df[self.category] < number
+        elif self.operator == '=':
+            condition = df[self.category] == number
         else:
             raise ValueError("Invalid operator. Use '>', '<', or '='.")
 
-        #Using boolean indexing to filter the DataFrame
+        # Using boolean indexing to filter the DataFrame
         result_df = df[condition]
 
-        #Converting the result to a list of dictionaries
+        # Converting the result to a list of dictionaries
         result_list = result_df.to_dict('records')
 
         return result_list
-    
-    def __call__(self, operator, category, number, sort_key=None, reverse=False):
+
+    def __call__(self, reverse=False):
+        # Prompting the user for input on category, number, and operator
+        category = input("What category would you like to view? ")
+        number = float(input("Enter the number: "))
+        operator = input("Enter the operator ('>', '<', '='): ")
+
+        # Checking if the provided category is in the list of possible categories
+        if category not in self.possible_categories:
+            raise ValueError("Invalid category. Choose from: {}".format(", ".join(self.possible_categories)))
+
         result_list = self.searchStats(operator, category, number)
 
-        if sort_key:
-            result_list.sort(key=lambda x: x[sort_key], reverse=reverse)
+        # Setting the sort_key to the specified category
+        sort_key = category
+
+        result_list.sort(key=lambda x: x[sort_key], reverse=reverse)
 
         return result_list
+    
+    # Testing
+    # Creating an instance of the class
+# nba_search = PlayerGrader()
+
+    # Searching and sorting by the specified category in descending order
+# result = PlayerGrader(reverse=True)
+# print(result)
+
 
     def show_best_performing_teams(self, filepath, criteria_column, 
                                    number_of_best_teams=None):
