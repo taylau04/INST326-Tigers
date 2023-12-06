@@ -133,10 +133,12 @@ class PlayerGrader:
         return grade, scaled_score
 
     def player_comparison(player1_name, player2_name, score1, score2):
-        return (
+        return(
             f"{player1_name} received a higher performance score than {player2_name}"
-            if score1 > score2 else f"{player2_name} received a higher performance score than {player1_name}"
-            if score1 == score2 else f"{player1_name} is the same performance score as {player2_name}"   
+            if score1 > score2 else
+            (f"{player2_name} received a higher performance score than {player1_name}"
+            if score1 < score2 else
+            f"{player1_name} is the same performance score as {player2_name}")
         )
     
     def searchStats(self, category, operator, number):
@@ -299,6 +301,10 @@ def main():
         print(f"Player 2 Grade: {grade2}, Numeric Score: {score2}")
     else:
         print(f"No player found with the name '{player2_name}'.")
+    
+    comparison = PlayerGrader.player_comparison(player1_name, player2_name, score1, score2)
+    print(comparison)
+    
     # Parse command-line arguments
     args = parse_args()
     # Perform player comparison
