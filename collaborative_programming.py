@@ -9,7 +9,7 @@
 """ This is my docstring! - Aadarsh """
  
 """ rene made this - rene """
-
+from argparse import ArgumentParser
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -140,7 +140,7 @@ class PlayerGrader:
             if score1 < score2 else
             f"{player1_name} is the same performance score as {player2_name}")
         )
-    
+
     def searchStats(self, category, operator, number):
         """This function’s purpose is to be a search tool for users to search 
             for specific stats to see which players fit in to the category 
@@ -307,16 +307,28 @@ def main():
     
     # Parse command-line arguments
     args = parse_args()
-    # Perform player comparison
-    player_comparison(args.file, args.player1, args.player2)
-
-    # Example for the performance graph )
-    player = CollegeBasketballPlayer("Player1")
-    player.add_score(14) # will eventually replace with actual data
-    player.add_score(26)
-    player.performance_graph()
-
-def parse_args(args):
+    #create a sequence of the PlayerGrader class
+    filepath = args.file
+    grader = PlayerGrader(filepath)
+    #get stats for player 1
+    player1_name = args.player1
+    player1_stats = grader.get_player_stats(player1_name)
+    if player1_stats is not None:
+        grade1, score1 = grader.calculate_player_grade(player1_stats)
+        print(f"Player 1 Grade: {grade1}, Numeric Score: {score1}")
+    else:
+        print(f"No player found with the name '{player1_name}'.")
+    #get stats for player 2
+    player2_name = args.player2
+    player2_stats = grader.get_player_stats(player2_name)
+    if player2_stats is not None:
+        grade2, score2 = grader.calculate_player_grade(player2_stats)
+        print(f"Player 2 Grade: {grade2}, Numeric Score: {score2}")
+    else:
+        print(f"No player found with the name '{player2_name}'.")
+    
+        
+def parse_args():
     """Parse and validate command-line arguments.
 
     Returns:
@@ -326,11 +338,11 @@ def parse_args(args):
     parser.add_argument('file', type=str, help='Path to the file containing player statistics')
     parser.add_argument('player1', type=str, help='Name of the first player')
     parser.add_argument('player2', type=str, help='Name of the second player')
-    return parser.parse_args(arglist)
+    return parser.parse_args()
 
 if __name__ == "__main__":
-    args = parse_args(sys.args[1:])
-    main(args.file)           
+    args = parse_args()
+    main(args)           
                 
                 
         
