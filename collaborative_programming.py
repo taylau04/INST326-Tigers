@@ -133,6 +133,17 @@ class PlayerGrader:
         return grade, scaled_score
 
     def player_comparison(player1_name, player2_name, score1, score2):
+        """This function compares the scaled score of player 1 and player 2.
+        
+        Args:
+            player1_name (str): name of player 1.
+            player2_name(str): name of player 2.
+            score1 (float): the scaled score of player 1.
+            score2 (float): the scaled score of player 2.
+        
+        Returns:
+            Returns f-strings which describing if player 1 had a higher or lower score than player 2.
+        """
         return(
             f"{player1_name} received a higher performance score than {player2_name}"
             if score1 > score2 else
