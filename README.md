@@ -95,3 +95,35 @@ Valid values are:
 Enter one of the statistic abbreviations: PF
 # A diagram shows up
 ```
+```
+Attribution 
+| Function/Method                     | Primary Author| Techniques Demonstrated     |
+| ------------------------------------| ------------- |-------------------------    |
+| show_player_stats_by_team_barplot() | Aadarsh       | Data Visualization          |
+| show_best_performing_teams()        | Aadarsh       | Pandas                      |
+| get_player_stats()                  | Taylor        | With Statements             |
+| player_comparison()                 | Taylor        | Conditional Expressions     |
+| calculate_player_grade()            | Rene          | Min/max & sorting           |
+| calculate_player_grade()            | Rene          | List comprehensions         |
+| __call__()                          | Richmond      | Magic Methods               |
+| __call__()                          | Richmond      | Optional Parameters         |
+| parse_args()                        | Samantha      | Argument Parser             |
+| main()                              | Samantha      | f-strings                   |                
+| ----------------------------------- | ------------- | ----------------------------
+
+Primary Authors of each function 
+* show_player_stats_by_team_barplot() and show_best_performing_teams() was created by Aadarsh
+* get_player_stats() was created by Rene and Taylor 
+* player_comparison() was created by Taylor 
+* get_player_stats(), __init(), calculate_player_grade() was created by Rene 
+* searchStats() and __call__() was created by Richmond 
+* parse_args() was created by Samantha 
+* main() was created by Rene, Taylor, Aadarsh, and Samantha
+```
+```
+Files in Repository
+* .gitignore: ???
+* NBA_2024_per_game(28-11-2023).csv: A csv file consisting of stats from NBA players
+* README.md: A markdown file consisting of documentation abt our program
+* collaborative_programming.py: Our player performance program 
+```
