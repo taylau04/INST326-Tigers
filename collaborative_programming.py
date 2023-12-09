@@ -1,19 +1,10 @@
-"""This is our collaborative programming exercise."""
-
-"""This is my edit haha hehe - Richmond Akondo"""
-
-"""This is Taylor's edit woooo"""
-
-""" This is my docstring!!! - Sam """
-
-""" This is my docstring! - Aadarsh """
- 
-""" rene made this - rene """
+"""
+"""
 from argparse import ArgumentParser
+import csv
+import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import pandas as pd
-import csv
 
 basketball_stats_dict = {
     "Player": "Player's name",
@@ -234,14 +225,13 @@ class PlayerGrader:
 # print(result)
 
 
-    def show_best_performing_teams(self, filepath, criteria_column, 
+    def show_best_performing_teams(self, criteria_column, 
                                    number_of_best_teams=None):
         """
         Read a dataset from a CSV file and return the best performing teams 
         based on a given criteria.
 
         Args:
-        - filepath (str): The path to the CSV file containing the dataset.
         - criteria_column (str): The name of the column in the dataset that is 
         used to evaluate team performance.
         - number_of_best_teams (int): The number of top-performing teams to 
@@ -260,7 +250,7 @@ class PlayerGrader:
         3. Sorts the teams by their average performance in descending order.
         4. Returns the specified number of top-performing teams.
         """
-        df = pd.read_csv(filepath)
+        df = pd.read_csv(self.filepath)
         grouped_by_team = df.groupby("Tm")[criteria_column]
         average_by_team = grouped_by_team.sum()
         sorted_by_average = average_by_team.sort_values(key=lambda x: -1 * x)
@@ -268,15 +258,12 @@ class PlayerGrader:
             return sorted_by_average
         return sorted_by_average[:number_of_best_teams]
 
-    def show_player_stats_by_team_barplot(self, filepath, team_name, 
-                                          stats_column):
+    def show_player_stats_by_team_barplot(self, team_name, stats_column):
         """
         Generate a bar plot showing the specified basketball statistics for 
         each player in a given team.
 
         Args:
-        - filepath (str): Path to the CSV file containing the basketball 
-        statistics data.
         - team_name (str): Name of the team for which the statistics are to be 
         plotted.
         - stats_column (str): The specific column/statistic to be plotted 
@@ -306,68 +293,86 @@ class PlayerGrader:
             print(f"Cannot plot statistics for column {stats_column}," 
                   " no such statistics available.")
             return
-        df = pd.read_csv(filepath)
+        df = pd.read_csv(self.filepath)
         plot_data = df[df["Tm"] == team_name][["Player", stats_column]]
 
-        sns.barplot(x='Player', y=stats_column, data=plot_data)
+        sns.barplot(x='Player', y=stats_column, hue='Player', data=plot_data)
 
-        plt.title(f'{stats_column_desc} per Player')
+        plt.title(f'{stats_column_desc} per Player of {team_name}')
         plt.xlabel('Player')
         plt.ylabel(f'{stats_column_desc} ({stats_column})')
-        plt.xticks(rotation=90)  # Rotate the player names
+        plt.xticks(rotation=45, ha='right')  # Rotate the player names
+        plt.subplots_adjust(bottom=0.3)  # Adjust the bottom margin
         plt.show()
 
-def main():
+def main(arguments):
     """Main function to initiate the player grading process.
 
     This function creates an instance of the PlayerGrader class, fetches stats
     for two players entered by the user, calculates their grades, and prints the results.
     """
-    filepath = "NBA_2024_per_game(28-11-2023).csv"
+
+    filepath = arguments.file
     grader = PlayerGrader(filepath)
 
-    player1_name = input("Enter Player 1's name: ")
-    player1_stats = grader.get_player_stats(player1_name)
-    if player1_stats is not None:
-        grade1, score1 = grader.calculate_player_grade(player1_stats)
-        print(f"Player 1 Grade: {grade1}, Numeric Score: {score1}")
-    else:
-        print(f"No player found with the name '{player1_name}'.")
+    if arguments.action == "compare_players":
+        player1_name = input("Enter Player 1's name: ")
+        player1_stats = grader.get_player_stats(player1_name)
+        if player1_stats is not None:
+            grade1, score1 = grader.calculate_player_grade(player1_stats)
+            print(f"Player 1 Grade: {grade1}, Numeric Score: {score1}")
+        else:
+            print(f"No player found with the name '{player1_name}'.")
 
-    player2_name = input("Enter Player 2's name: ")
-    player2_stats = grader.get_player_stats(player2_name)
-    if player2_stats is not None:
-        grade2, score2 = grader.calculate_player_grade(player2_stats)
-        print(f"Player 2 Grade: {grade2}, Numeric Score: {score2}")
-    else:
-        print(f"No player found with the name '{player2_name}'.")
+        player2_name = input("Enter Player 2's name: ")
+        player2_stats = grader.get_player_stats(player2_name)
+        if player2_stats is not None:
+            grade2, score2 = grader.calculate_player_grade(player2_stats)
+            print(f"Player 2 Grade: {grade2}, Numeric Score: {score2}")
+        else:
+            print(f"No player found with the name '{player2_name}'.")
+        comparison = PlayerGrader.player_comparison(player1_name, player2_name, score1, score2)
+        print(comparison)
+        return
     
-    comparison = PlayerGrader.player_comparison(player1_name, player2_name, score1, score2)
-    print(comparison)
+    if arguments.action == "show_best_teams":
+        print("Enter statistic name to evaluate")
+        print("Valid values are: ")
+        for code, name in basketball_stats_dict.items():
+            if code in ["Player", "Pos", "Age", "Tm"]:
+                continue
+            print(f"    {code}: {name}")
+        criteria_column = input("Enter one of the statistic abbreviations: ")
+        if criteria_column not in basketball_stats_dict:
+            print(f"Invalid statistic name {criteria_column}")
+            return
+        no_best_teams = input("Enter number of teams to show (default is all): ")
+        if no_best_teams.strip() == "":
+            no_best_teams = None
+        else:
+            no_best_teams = int(no_best_teams.strip())
+        teams = grader.show_best_performing_teams(criteria_column, number_of_best_teams=no_best_teams)
+        print(f"The best performing teams for statistic {criteria_column} are:")
+        teams_df = pd.DataFrame(teams).reset_index()
+        teams_df.columns = ["Team", basketball_stats_dict[criteria_column]]
+        print(teams_df)
+        return
     
-    # Parse command-line arguments
-    args = parse_args()
-    #create a sequence of the PlayerGrader class
-    filepath = args.file
-    grader = PlayerGrader(filepath)
-    #get stats for player 1
-    player1_name = args.player1
-    player1_stats = grader.get_player_stats(player1_name)
-    if player1_stats is not None:
-        grade1, score1 = grader.calculate_player_grade(player1_stats)
-        print(f"Player 1 Grade: {grade1}, Numeric Score: {score1}")
-    else:
-        print(f"No player found with the name '{player1_name}'.")
-    #get stats for player 2
-    player2_name = args.player2
-    player2_stats = grader.get_player_stats(player2_name)
-    if player2_stats is not None:
-        grade2, score2 = grader.calculate_player_grade(player2_stats)
-        print(f"Player 2 Grade: {grade2}, Numeric Score: {score2}")
-    else:
-        print(f"No player found with the name '{player2_name}'.")
-    
-        
+    if arguments.action == "player_stats_by_team":
+        team_name = input("Enter team name: ")
+        print("Enter statistic name to evaluate")
+        print("Valid values are: ")
+        for code, name in basketball_stats_dict.items():
+            if code in ["Player", "Pos", "Age", "Tm"]:
+                continue
+            print(f"    {code}: {name}")
+        stats_column = input("Enter one of the statistic abbreviations: ")
+        if stats_column not in basketball_stats_dict:
+            print(f"Invalid statistic name {stats_column}")
+            return
+        grader.show_player_stats_by_team_barplot(team_name, stats_column)
+        return
+
 def parse_args():
     """Parse and validate command-line arguments.
 
@@ -376,14 +381,11 @@ def parse_args():
     """
     parser = ArgumentParser()
     parser.add_argument('file', type=str, help='Path to the file containing player statistics')
-    parser.add_argument('player1', type=str, help='Name of the first player')
-    parser.add_argument('player2', type=str, help='Name of the second player')
+    parser.add_argument('action', type=str, 
+                        help='Name of the action to run: ' 
+                        'compare_players | show_best_teams | player_stats_by_team')
     return parser.parse_args()
 
 if __name__ == "__main__":
     args = parse_args()
-    main(args)           
-                
-                
-        
-    
+    main(args)
