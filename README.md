@@ -124,6 +124,6 @@ Primary Authors of each function
 Files in Repository
 * .gitignore: ???
 * NBA_2024_per_game(28-11-2023).csv: A csv file consisting of stats from NBA players
-* README.md: A markdown file consisting of documentation abt our program
+* README.md: A markdown file consisting of documentation about our program
 * collaborative_programming.py: Our player performance program 
 ```
