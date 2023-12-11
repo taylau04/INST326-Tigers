@@ -1,3 +1,5 @@
+"""
+"""
 from argparse import ArgumentParser
 import csv
 import pandas as pd
@@ -138,7 +140,7 @@ class PlayerGrader:
         Returns:
             Returns f-strings which describing if player 1 had a higher or lower score than player 2.
         """
-        return (
+        return(
             f"{player1_name} received a higher performance score than {player2_name}"
             if score1 > score2 else
             (f"{player2_name} received a higher performance score than {player1_name}"
@@ -148,9 +150,6 @@ class PlayerGrader:
 
     def searchStats(self, category, operator, number):
         """ 
-        Primary author: Richmond Akondo
-        Technique(s): Dataframes
-        
         This function’s purpose is to be a search tool for users to search 
         for specific stats to see which players fit in to the category 
         being searched
@@ -164,7 +163,6 @@ class PlayerGrader:
             the number
             number (int): This is a number for a specific stat line. For example
             25 could represent a 25 ppg
-            
         Returns:
             List: A list of players in the file that match the catgeory being 
             searched    
@@ -206,19 +204,6 @@ class PlayerGrader:
         return result_list
 
     def __call__(self, reverse=False):
-        """
-        Primary author: Richmond Akondo
-        Technique(s): Magic Methods and Optional Parameters
-        
-        Initiates a search and sort process based on user input.
-        
-        Args:
-            reverse (bool): Whether to sort the results in reverse order.
-        
-        Returns:
-            List: A list of players sorted based on user-specificed criteria.
-        
-        """
         # Prompting the user for input on category, number, and operator
         category = input("What category would you like to view? ")
         number = float(input("Enter the number: "))
@@ -237,13 +222,18 @@ class PlayerGrader:
 
         return result_list
     
+    # Testing
+    # Creating an instance of the class
+# nba_search = PlayerGrader()
+
+    # Searching and sorting by the specified category in descending order
+# result = PlayerGrader(reverse=True)
+# print(result)
+
 
     def show_best_performing_teams(self, criteria_column, 
                                    number_of_best_teams=None):
         """
-        Primary Author: Aadarsh Bandyopadhyay
-        Techniques used: Pandas
-        
         Read a dataset from a CSV file and return the best performing teams 
         based on a given criteria.
 
@@ -276,9 +266,6 @@ class PlayerGrader:
 
     def show_player_stats_by_team_barplot(self, team_name, stats_column):
         """
-        Primary Author: Aadarsh Bandyopadhyay
-        Techniques used: Data Visualization
-        
         Generate a bar plot showing the specified basketball statistics for 
         each player in a given team.
 
@@ -325,22 +312,12 @@ class PlayerGrader:
         plt.show()
 
 def main(arguments):
-    """  
-    Primary author: Samantha Guchhait
-    Technique: f-strings
-    
-    Initiates the basketball player grading process based on user input.
+    """Main function to initiate the player grading process.
 
-    This function interacts with the user to perform various actions, such as
-    comparing players, showing the best-performing teams, displaying player
-    statistics by team, searching for specific stats, or calling a custom method.
-    
-    Args:
-        arguments (namespace): Parsed command-line arguements.
-    
-    Returns:
-        None  
+    This function creates an instance of the PlayerGrader class, fetches stats
+    for two players entered by the user, calculates their grades, and prints the results.
     """
+
     filepath = arguments.file
     grader = PlayerGrader(filepath)
 
@@ -414,15 +391,11 @@ def main(arguments):
 
     
 def parse_args():
-    """ 
-    Primary author: Samantha Guchhait
-    Technique: Argument Parser
-
-    Parse and validate command-line arguments for the basketball player grading program.
+    """Parse and validate command-line arguments.
 
     Returns:
-        namespace: the parsed arguments, as a namespace.
-    """ 
+        namespace: the parsed arguments, as a namespace. 
+    """
     parser = ArgumentParser()
     parser.add_argument('file', type=str, help='Path to the file containing player statistics')
     parser.add_argument('action', type=str, 
