@@ -1,5 +1,3 @@
-"""
-"""
 from argparse import ArgumentParser
 import csv
 import pandas as pd
@@ -59,7 +57,9 @@ class PlayerGrader:
         self.filepath = filepath
 
     def get_player_stats(self, player_name):
-        """
+        """Primary Author: Taylor Lau w/ assistance from Rene
+           Techniques used: with statements
+           
         Retrieves the statistics for a specific player from the CSV file.
 
         Args:
@@ -124,7 +124,10 @@ class PlayerGrader:
         return grade, scaled_score
 
     def player_comparison(player1_name, player2_name, score1, score2):
-        """This function compares the scaled score of player 1 and player 2.
+        """ Primary Author: Taylor Lau
+            Techniques used: Conditional expressions
+        
+        This function compares the scaled score of player 1 and player 2.
         
         Args:
             player1_name (str): name of player 1.
@@ -142,6 +145,7 @@ class PlayerGrader:
             if score1 < score2 else
             f"{player1_name} is the same performance score as {player2_name}")
         )
+
     def searchStats(self, category, operator, number):
         """This function’s purpose is to be a search tool for users to search 
             for specific stats to see which players fit in to the category 
@@ -305,35 +309,11 @@ class PlayerGrader:
         plt.show()
 
 def main(arguments):
-    """ Main function to initiate the player grading process.
+    """Main function to initiate the player grading process.
 
     This function creates an instance of the PlayerGrader class, fetches stats
     for two players entered by the user, calculates their grades, and prints the results.
-    
-    Returns:
-        None 
     """
-    # Parse command-line arguments
-    args = parse_args()
-    #create a sequence of the PlayerGrader class
-    filepath = args.file
-    grader = PlayerGrader(filepath)
-    #get stats for player 1
-    player1_name = args.player1
-    player1_stats = grader.get_player_stats(player1_name)
-    if player1_stats is not None:
-        grade1, score1 = grader.calculate_player_grade(player1_stats)
-        print(f"Player 1 Grade: {grade1}, Numeric Score: {score1}")
-    else:
-        print(f"No player found with the name '{player1_name}'.")
-    #get stats for player 2
-    player2_name = args.player2
-    player2_stats = grader.get_player_stats(player2_name)
-    if player2_stats is not None:
-        grade2, score2 = grader.calculate_player_grade(player2_stats)
-        print(f"Player 2 Grade: {grade2}, Numeric Score: {score2}")
-    else:
-        print(f"No player found with the name '{player2_name}'.")
 
     filepath = arguments.file
     grader = PlayerGrader(filepath)
@@ -396,8 +376,21 @@ def main(arguments):
         grader.show_player_stats_by_team_barplot(team_name, stats_column)
         return
 
+    if arguments.action == "search_stats":
+        result_list = grader.searchStats(input("Enter category: "), 
+                                         input("Enter operator ('>', '<', '='): "), 
+                                         float(input("Enter number: ")))
+        print(result_list)
+
+    if arguments.action == "call_method":
+        result_list = grader(reverse=True)
+        print(result_list)
+
+    
 def parse_args():
     """Parse and validate command-line arguments.
+    
+    Sam Gucci
 
     Returns:
         namespace: the parsed arguments, as a namespace. 
@@ -406,7 +399,7 @@ def parse_args():
     parser.add_argument('file', type=str, help='Path to the file containing player statistics')
     parser.add_argument('action', type=str, 
                         help='Name of the action to run: ' 
-                        'compare_players | show_best_teams | player_stats_by_team')
+                        'compare_players | show_best_teams | player_stats_by_team | search_stats | call_method')
     return parser.parse_args()
 
 if __name__ == "__main__":
