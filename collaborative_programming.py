@@ -172,14 +172,12 @@ class PlayerGrader:
         self.possible_categories = ["Pos", "Age", "GS", "MP","FG%",
                                     "FT%",
                                     "TRB", "AST", "STL", "BLK", "TOV", "PF", "PTS"]
-        
-        filepath = "/Users/richmondo/Desktop/NBA_2024_per_game(15-11-2023 Updated).csv"
 
         self.operator = operator
         self.category = category
         self.number = number
 
-        df = pd.read_csv(filepath)
+        df = pd.read_csv(self.filepath)
 
         # Checking if the provided category is in the list of possible categories
         if self.category not in self.possible_categories:

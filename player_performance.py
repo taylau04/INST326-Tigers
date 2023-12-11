@@ -154,6 +154,9 @@ class PlayerGrader:
         This function’s purpose is to be a search tool for users to search 
         for specific stats to see which players fit in to the category 
         being searched
+        
+        This function works on my computer but not running on my groupmates 
+        computers
 
         Args:
             category (string): This string can be any category in the stat line 
@@ -175,13 +178,11 @@ class PlayerGrader:
                                     "FT%",
                                     "TRB", "AST", "STL", "BLK", "TOV", "PF", "PTS"]
         
-        filepath = "/Users/richmondo/Desktop/NBA_2024_per_game(15-11-2023 Updated).csv"
-
         self.operator = operator
         self.category = category
         self.number = number
 
-        df = pd.read_csv(filepath)
+        df = pd.read_csv(self.filepath)
 
         # Checking if the provided category is in the list of possible categories
         if self.category not in self.possible_categories:
