@@ -4,9 +4,9 @@ Example Runs:
 
 ```
 Enter the following line below into the terminal to understand the usage of command line arguments.
-python3 collaborative_programming.py -h
+python3 player_performance.py -h
 
-usage: collaborative_programming.py [-h] file action
+usage: player_performance.py [-h] file action
 
 positional arguments:
   file        Path to the file containing player statistics
@@ -20,7 +20,7 @@ options:
 ```
 Enter the following line below into the terminal to run get_player_stats(), calculate_player_grade(),
 and player_comparison() methods. 
-python3 collaborative_programming.py NBA_2024_per_game\(28-11-2023\).csv compare_players
+python3 player_performance.py NBA_2024_per_game\(28-11-2023\).csv compare_players
 
 *Our program will ask the user to input player 1 and player 2's name. The following is an example 
 of the output.
@@ -34,7 +34,7 @@ Lebron James received a higher performance score than Grayson Allen
 
 ```
 Enter the following line below into the terminal to run show_best_performing_teams() method.
-python3 collaborative_programming.py NBA_2024_per_game\(28-11-2023\).csv show_best_teams
+python3 player_performance.py NBA_2024_per_game\(28-11-2023\).csv show_best_teams
 
 *Our program will ask the user to input a statistic and the number of teams to display 
 within the df. The user must use an abbreviated statistic value and an integer for the 
@@ -78,7 +78,7 @@ The best performing teams for statistic DRB are:
 
 ```
 Enter the following line below into the terminal to run show_player_stats_by_team_barplot() method.
-python3 collaborative_programming.py NBA_2024_per_game\(28-11-2023\).csv player_stats_by_team
+python3 player_performance.py NBA_2024_per_game\(28-11-2023\).csv player_stats_by_team
 
 *Our program will ask the user to input a team name and a statistic value. The user 
 must enter an abbreviation for both the team name and the statistic value. The following 
@@ -118,7 +118,7 @@ Enter one of the statistic abbreviations: PF
 ```
 
 Enter the following line below into the terminal to run the searchStats() method.
-python3 collaborative_programming.py NBA_2024_per_game\(28-11-2023\).csv search_stats
+python3 player_performance.py NBA_2024_per_game\(28-11-2023\).csv search_stats
 
 *Our program will ask the user to input a specific category of a player's stat line.
 The user can input any of the following stats: "Pos", "Age", "GS", "MP","FG%",
@@ -197,7 +197,7 @@ Primary Authors of each function
 Files in Repository
 * NBA_2024_per_game(28-11-2023).csv: A csv file consisting of stats from NBA players
 * README.md: A markdown file consisting of documentation about our program
-* collaborative_programming.py: Our player performance program 
+* player_performance.py: Our player performance program 
 ```
 ```
 Annotated Bibliography
