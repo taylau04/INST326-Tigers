@@ -138,7 +138,7 @@ class PlayerGrader:
         Returns:
             Returns f-strings which describing if player 1 had a higher or lower score than player 2.
         """
-        return(
+        return (
             f"{player1_name} received a higher performance score than {player2_name}"
             if score1 > score2 else
             (f"{player2_name} received a higher performance score than {player1_name}"
