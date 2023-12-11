@@ -201,6 +201,19 @@ class PlayerGrader:
         return result_list
 
     def __call__(self, reverse=False):
+        """
+        Primary author: Richmond Akondo
+        Technique(s): Magic Methods and Optional Parameters
+        
+        Initiates a search and sort process based on user input.
+        
+        Args:
+            reverse (bool): Whether to sort the results in reverse order.
+        
+        Returns:
+            List: A list of players sorted based on user-specificed criteria.
+        
+        """
         # Prompting the user for input on category, number, and operator
         category = input("What category would you like to view? ")
         number = float(input("Enter the number: "))
@@ -309,12 +322,22 @@ class PlayerGrader:
         plt.show()
 
 def main(arguments):
-    """Main function to initiate the player grading process.
+    """  
+    Primary author: Samantha Guchhait
+    Technique: f-strings
+    
+    Initiates the basketball player grading process based on user input.
 
-    This function creates an instance of the PlayerGrader class, fetches stats
-    for two players entered by the user, calculates their grades, and prints the results.
+    This function interacts with the user to perform various actions, such as
+    comparing players, showing the best-performing teams, displaying player
+    statistics by team, searching for specific stats, or calling a custom method.
+    
+    Args:
+        arguments (namespace): Parsed command-line arguements.
+    
+    Returns:
+        None  
     """
-
     filepath = arguments.file
     grader = PlayerGrader(filepath)
 
@@ -388,13 +411,15 @@ def main(arguments):
 
     
 def parse_args():
-    """Parse and validate command-line arguments.
-    
-    Sam Gucci
+    """ 
+    Primary author: Samantha Guchhait
+    Technique: Argument Parser
+
+    Parse and validate command-line arguments for the basketball player grading program.
 
     Returns:
-        namespace: the parsed arguments, as a namespace. 
-    """
+        namespace: the parsed arguments, as a namespace.
+    """ 
     parser = ArgumentParser()
     parser.add_argument('file', type=str, help='Path to the file containing player statistics')
     parser.add_argument('action', type=str, 
