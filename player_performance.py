@@ -160,6 +160,7 @@ class PlayerGrader:
             the number
             number (int): This is a number for a specific stat line. For example
             25 could represent a 25 ppg
+            
         Returns:
             List: A list of players in the file that match the catgeory being 
             searched    
@@ -219,18 +220,13 @@ class PlayerGrader:
 
         return result_list
     
-    # Testing
-    # Creating an instance of the class
-# nba_search = PlayerGrader()
-
-    # Searching and sorting by the specified category in descending order
-# result = PlayerGrader(reverse=True)
-# print(result)
-
 
     def show_best_performing_teams(self, criteria_column, 
                                    number_of_best_teams=None):
         """
+        Primary Author: Aadarsh Bandyopadhyay
+        Techniques used: Pandas
+        
         Read a dataset from a CSV file and return the best performing teams 
         based on a given criteria.
 
@@ -263,6 +259,9 @@ class PlayerGrader:
 
     def show_player_stats_by_team_barplot(self, team_name, stats_column):
         """
+        Primary Author: Aadarsh Bandyopadhyay
+        Techniques used: Data Visualization
+        
         Generate a bar plot showing the specified basketball statistics for 
         each player in a given team.
 
