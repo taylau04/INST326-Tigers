@@ -116,6 +116,26 @@ Enter one of the statistic abbreviations: PF
 # A diagram shows up
 ```
 ```
+
+Enter the following line below into the terminal to run the searchStats() method.
+python3 collaborative_programming.py NBA_2024_per_game\(28-11-2023\).csv search_stats
+
+*Our program will ask the user to input a specific category of a player's stat line.
+The user can input any of the following stats: "Pos", "Age", "GS", "MP","FG%",
+"FT%","TRB", "AST", "STL", "BLK", "TOV", "PF", "PTS". Then the user is asked for
+an operator, and then a number. The following is an example 
+of the output:
+
+Enter Category: PTS
+Enter operator ('>', '<', '='): >
+Enter number: 20 
+
+Output:
+{'Player': 'Giannis Antetokounmpo', 'Pos': 'PF', 'Age': 29, 'Tm': 'MIL', 'G': 10, 'GS': 10, 'MP': 32.5, 'FG': 11.0, 'FGA': 18.9, 'FG%': 0.582}
+{'Player': 'Desmond Bane', 'Pos': 'SG', 'Age': 25, 'Tm': 'MEM', 'G': 10, 'GS': 10, 'MP': 35.4, 'FG': 9.8, 'FGA': 21.6, 'FG%': 0.454}
+
+```
+```
 Interpretting output of the program 
 Our program consists of three sections: comparing two NBA players (compare_players), displaying best 
 NBA teams (show_best_teams), and data visualization of player stats (player_stats_by_team). 
