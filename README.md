@@ -190,8 +190,8 @@ Primary Authors of each function
 * player_comparison() was created by Taylor 
 * get_player_stats(), __init(), calculate_player_grade() was created by Rene 
 * searchStats() and __call__() was created by Richmond 
-* parse_args() was created by Samantha and Aadarsh
-* main() was created by Rene, Taylor, Aadarsh, and Samantha
+* parse_args() was created by Samantha with assistance from Aadarsh
+* main() was created by Samantha with assistance from Rene and Aadarsh
 ```
 ```
 Files in Repository
