@@ -59,7 +59,9 @@ class PlayerGrader:
         self.filepath = filepath
 
     def get_player_stats(self, player_name):
-        """
+        """Primary Author: Taylor Lau w/ assistance from Rene
+           Techniques used: with statements
+           
         Retrieves the statistics for a specific player from the CSV file.
 
         Args:
@@ -124,7 +126,10 @@ class PlayerGrader:
         return grade, scaled_score
 
     def player_comparison(player1_name, player2_name, score1, score2):
-        """This function compares the scaled score of player 1 and player 2.
+        """ Primary Author: Taylor Lau
+            Techniques used: Conditional expressions
+        
+        This function compares the scaled score of player 1 and player 2.
         
         Args:
             player1_name (str): name of player 1.
