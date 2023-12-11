@@ -131,8 +131,26 @@ Enter operator ('>', '<', '='): >
 Enter number: 20 
 
 Output:
-{'Player': 'Giannis Antetokounmpo', 'Pos': 'PF', 'Age': 29, 'Tm': 'MIL', 'G': 10, 'GS': 10, 'MP': 32.5, 'FG': 11.0, 'FGA': 18.9, 'FG%': 0.582}
-{'Player': 'Desmond Bane', 'Pos': 'SG', 'Age': 25, 'Tm': 'MEM', 'G': 10, 'GS': 10, 'MP': 35.4, 'FG': 9.8, 'FGA': 21.6, 'FG%': 0.454}
+{'Player': 'Giannis Antetokounmpo', 'Pos': 'PF', 'Age': 29, 'Tm': 'MIL', 'G': 10, 'GS': 10, 'MP': 32.5, 'FG': 11.0, 'FGA': 18.9, 'FG%': 0.582, 'PTS': 29.5}
+{'Player': 'Desmond Bane', 'Pos': 'SG', 'Age': 25, 'Tm': 'MEM', 'G': 10, 'GS': 10, 'MP': 35.4, 'FG': 9.8, 'FGA': 21.6, 'FG%': 0.454, 'PTS': 26.5}
+{'Player': 'Stephen Curry', 'Pos': 'PG', 'Age': 35, 'Tm': 'GSW', 'G': 11, 'GS': 11, 'MP': 32.5, 'FG': 9.5, 'FGA': 19.5, 'FG%': 0.488, 'PTS': 25}
+{'Player': 'Luka Dončić', 'Pos': 'PG', 'Age': 24, 'Tm': 'DAL', 'G': 10, 'GS': 10, 'MP': 35.8, 'FG': 11.2, 'FGA': 21.3, 'FG%': 0.526, 'PTS': 32}
+{'Player': 'Kevin Durant', 'Pos': 'PF', 'Age': 35, 'Tm': 'PHO', 'G': 10, 'GS': 10, 'MP': 36.7, 'FG': 10.1, 'FGA': 20.3, 'FG%': 0.498, 'PTS': 21}
+{'Player': 'Anthony Edwards', 'Pos': 'SG', 'Age': 22, 'Tm': 'MIN', 'G': 9, 'GS': 9, 'MP': 35.9, 'FG': 10.4, 'FGA': 21.4, 'FG%': 0.487, 'PTS': 27.4}
+{'Player': 'Joel Embiid', 'Pos': 'C', 'Age': 29, 'Tm': 'PHI', 'G': 9, 'GS': 9, 'MP': 33.8, 'FG': 11.0, 'FGA': 21.8, 'FG%': 0.505, 'PTS': 23.5}
+{'Player': "De'Aaron Fox", 'Pos': 'PG', 'Age': 26, 'Tm': 'SAC', 'G': 4, 'GS': 4, 'MP': 35.5, 'FG': 11.3, 'FGA': 22.5, 'FG%': 0.5, 'PTS': 27}
+{'Player': 'Shai Gilgeous-Alexander', 'Pos': 'PG', 'Age': 25, 'Tm': 'OKC', 'G': 9, 'GS': 9, 'MP': 35.7, 'FG': 11.2, 'FGA': 21.3, 'FG%': 0.526, 'PTS': 23.3}
+{'Player': 'LeBron James', 'Pos': 'PF', 'Age': 39, 'Tm': 'LAL', 'G': 9, 'GS': 9, 'MP': 35.0, 'FG': 9.7, 'FGA': 17.0, 'FG%': 0.569, 'PTS': 24.3}
+{'Player': 'Nikola Jokić', 'Pos': 'C', 'Age': 28, 'Tm': 'DEN', 'G': 10, 'GS': 10, 'MP': 34.6, 'FG': 12.0, 'FGA': 19.8, 'FG%': 0.606, 'PTS': 26.8}
+{'Player': 'Kyle Kuzma', 'Pos': 'PF', 'Age': 28, 'Tm': 'WAS', 'G': 10, 'GS': 10, 'MP': 30.3, 'FG': 9.6, 'FGA': 19.8, 'FG%': 0.485, 'PTS': 23.2}
+{'Player': 'Lauri Markkanen', 'Pos': 'PF', 'Age': 26, 'Tm': 'UTA', 'G': 10, 'GS': 10, 'MP': 33.5, 'FG': 8.1, 'FGA': 16.7, 'FG%': 0.485, 'PTS': 27.8}
+{'Player': 'Tyrese Maxey', 'Pos': 'PG', 'Age': 23, 'Tm': 'PHI', 'G': 9, 'GS': 9, 'MP': 37.9, 'FG': 10.3, 'FGA': 20.4, 'FG%': 0.505, 'PTS': 23.4}
+{'Player': 'Donovan Mitchell', 'Pos': 'SG', 'Age': 27, 'Tm': 'CLE', 'G': 9, 'GS': 9, 'MP': 36.2, 'FG': 10.2, 'FGA': 21.8, 'FG%': 0.469, 'PTS': 22.3}
+{'Player': 'Jayson Tatum', 'Pos': 'PF', 'Age': 25, 'Tm': 'BOS', 'G': 10, 'GS': 10, 'MP': 36.2, 'FG': 10.2, 'FGA': 19.4, 'FG%': 0.526, 'PTS': 24.3}
+{'Player': 'Cam Thomas', 'Pos': 'SG', 'Age': 22, 'Tm': 'BRK', 'G': 8, 'GS': 7, 'MP': 32.4, 'FG': 9.9, 'FGA': 20.6, 'FG%': 0.479, 'PTS': 23.1}
+{'Player': 'Trae Young', 'Pos': 'PG', 'Age': 25, 'Tm': 'ATL', 'G': 9, 'GS': 9, 'MP': 35.8, 'FG': 6.7, 'FGA': 18.7, 'FG%': 0.357, 'PTS': 26}
+
+These are all players that score more than 20 points 
 
 ```
 ```
