@@ -373,6 +373,17 @@ def main(arguments):
         grader.show_player_stats_by_team_barplot(team_name, stats_column)
         return
 
+    if arguments.action == "search_stats":
+        result_list = grader.searchStats(input("Enter category: "), 
+                                         input("Enter operator ('>', '<', '='): "), 
+                                         float(input("Enter number: ")))
+        print(result_list)
+
+    if arguments.action == "call_method":
+        result_list = grader(reverse=True)
+        print(result_list)
+
+    
 def parse_args():
     """Parse and validate command-line arguments.
 
@@ -383,7 +394,7 @@ def parse_args():
     parser.add_argument('file', type=str, help='Path to the file containing player statistics')
     parser.add_argument('action', type=str, 
                         help='Name of the action to run: ' 
-                        'compare_players | show_best_teams | player_stats_by_team')
+                        'compare_players | show_best_teams | player_stats_by_team | search_stats | call_method')
     return parser.parse_args()
 
 if __name__ == "__main__":
