@@ -198,5 +198,20 @@ Files in Repository
 * NBA_2024_per_game(28-11-2023).csv: A csv file consisting of stats from NBA players
 * README.md: A markdown file consisting of documentation about our program
 * collaborative_programming.py: Our player performance program 
+```
+```
+Annotated Bibliography
+
+“Seaborn.Barplot.” Seaborn.Barplot - Seaborn 0.13.0 Documentation,
+https://seaborn.pydata.org/generated/seaborn.barplot.html. Accessed 10 Dec. 2023.
+
+Stumbling Through Data ScienceStumbling Through Data Science. “How to Display Custom
+Values on a Bar Plot.” Stack Overflow, 4 Apr. 2017,
+https://stackoverflow.com/questions/43214978/how-to-display-custom-values-on-a-bar-plot. Accessed 10 December 2023.
+Before we learned about seaborn, I asked special permission from Aric to research how to create barplots and customize them for our project evaluation check in as at the time my only function at the time was a data visualization function. I used these websites to help me understand how to create a barplot, add titles to the x and y axis, and graph a dataframe.
+
+Chung, Bryan Weather. “NBA Player Stats Dataset for the 2023-2024.” Kaggle, 11 Nov. 2023,
+www.kaggle.com/datasets/bryanchungweather/nba-player-stats-dataset-for-the-2023-2024/data?select=NBA_2024_per_game%2813-11-2023%2BUpdated%29.csv. Accessed 10 December 2023.
+This dataset provided us with extensive statistics for NBA players during the 2023–2024 regular season. The columns consist of the player's name, positions, team, assists, steals, blocks, etc. This CVS code is first opened, read through, and irritated through in order to read the stats of NBA players and teams. These stats are used throughout the entire code to compare players, show top teams, and to create a Pandas DataFrame
 
 ```
