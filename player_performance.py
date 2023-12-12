@@ -80,6 +80,8 @@ class PlayerGrader:
 
     def calculate_player_grade(self, player_stats):
         """
+        Primary author: Rene Cadet
+        Technique(s): List comprehensions and  Min/max & sorting
         Calculates the grade of a player based on their statistics.
 
         Args:
@@ -126,6 +128,8 @@ class PlayerGrader:
 
     def __str__(self):
         """
+        Primary author: Rene Cadet
+        Technique(s): Magic Method
         Returns a string representation of the player's grade and statistics.
 
         This method is useful for quickly printing out the player's performance summary.
