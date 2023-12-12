@@ -16,7 +16,21 @@ options:
   -h, --help  show this help message and exit
 
 ```
+```
+Enter the following line below into the terminal to run __str__() methods. 
+python3 player_performance.py NBA_2024_per_game\(28-11-2023\).csv stats
 
+*Our program will ask the user to input a player's name. The following is an
+example of the output
+
+Enter player name: lebron james
+PTS    25.5
+AST     6.6
+TRB     8.0
+STL     1.5
+BLK     0.8
+TOV     3.8
+```
 ```
 Enter the following line below into the terminal to run get_player_stats(), calculate_player_grade(),
 and player_comparison() methods. 
