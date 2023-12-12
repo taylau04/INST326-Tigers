@@ -82,15 +82,15 @@ class PlayerGrader:
         """
         Calculates the grade of a player based on their statistics.
 
-        The function uses a weighted scoring system for different statistics
-        (like points, assists, rebounds, etc.) and then converts this score into a letter grade.
-
         Args:
             player_stats (pd.Series): A pandas Series containing player's statistics.
 
         Returns:
             tuple: A tuple containing the letter grade (str) and numeric score (float) for the player.
         """
+        # Storing the player stats in an attribute for later use in __str__
+        self.player_stats = player_stats
+
         weights = {'PTS': 1.1, 'AST': 1.05, 'TRB': 1.05, 'STL': 1.1, 'BLK': 1.1, 'TOV': -0.9}
         total_score = sum([player_stats[stat] * weights[stat] for stat in weights])
         scaled_score = max(0, min(100, total_score * 2))
@@ -121,7 +121,24 @@ class PlayerGrader:
             grade = 'D-'
         else:
             grade = 'F'
+        
         return grade, scaled_score
+
+    def __str__(self):
+        """
+        Returns a string representation of the player's grade and statistics.
+
+        This method is useful for quickly printing out the player's performance summary.
+        """
+        try:
+            player_name = self.player_stats.name
+            grade, score = self.calculate_player_grade(self.player_stats)
+            return (f"Player: {player_name}\n"
+                    f"Grade: {grade}\n"
+                    f"Score: {score}\n"
+                    f"Stats: {self.player_stats.to_string()}")
+        except AttributeError:
+            return "PlayerGrader object not initialized with player stats."
 
     def player_comparison(player1_name, player2_name, score1, score2):
         """ Primary Author: Taylor Lau
