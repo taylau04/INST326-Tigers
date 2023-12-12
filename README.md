@@ -186,7 +186,7 @@ Attribution
 
 Primary Authors of each function 
 * show_player_stats_by_team_barplot() and show_best_performing_teams() was created by Aadarsh
-* get_player_stats() was created Taylor with assistance by Rene
+* get_player_stats() was created by Taylor with assistance by Rene
 * player_comparison() was created by Taylor 
 * __str__(), calculate_player_grade() was created by Rene 
 * searchStats() and __call__() was created by Richmond 
