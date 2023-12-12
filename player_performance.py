@@ -90,7 +90,7 @@ class PlayerGrader:
         Returns:
             tuple: A tuple containing the letter grade (str) and numeric score (float) for the player.
         """
-        # Storing the player stats in an attribute for later use in __str__
+        
         self.player_stats = player_stats
 
         weights = {'PTS': 1.1, 'AST': 1.05, 'TRB': 1.05, 'STL': 1.1, 'BLK': 1.1, 'TOV': -0.9}
@@ -175,9 +175,6 @@ class PlayerGrader:
         This function’s purpose is to be a search tool for users to search 
         for specific stats to see which players fit in to the category 
         being searched
-        
-        This function works on my computer but not running on my groupmates 
-        computers
 
         Args:
             category (string): This string can be any category in the stat line 
@@ -434,6 +431,11 @@ def main(arguments):
         result_list = grader(reverse=True)
         print(result_list)
 
+    if arguments.action == "stats":
+        player_name = input("Enter player name: ")
+        stats = grader.get_player_stats(player_name)
+        if stats is not None:
+            print(stats) 
     
 def parse_args():
     """ 
@@ -449,7 +451,7 @@ def parse_args():
     parser.add_argument('file', type=str, help='Path to the file containing player statistics')
     parser.add_argument('action', type=str, 
                         help='Name of the action to run: ' 
-                        'compare_players | show_best_teams | player_stats_by_team | search_stats | call_method')
+                        'compare_players | show_best_teams | player_stats_by_team | search_stats | call_method | stats')
     return parser.parse_args()
 
 if __name__ == "__main__":
